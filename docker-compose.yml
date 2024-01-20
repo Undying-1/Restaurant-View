@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  web:
+    image: restaurant_view
+    container_name: restaurant_view
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - DEBUG=True
+      - POSTGRES_DB=restaurant
+      - POSTGRES_USER=davron_nematov
+      - POSTGRES_PASSWORD=password
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=restaurant
+      - POSTGRES_USER=davron_nematov
+      - POSTGRES_PASSWORD=password
